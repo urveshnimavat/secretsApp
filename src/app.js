@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const path = require("path");
 const session = require("express-session");
+const User = require("./models/User");
 const passport = require("passport");
 const port = process.env.PORT || 3000;
 
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
     session({
-        secret: "urveshnimavat57@gmail.com",
+        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
     })
@@ -27,6 +28,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use("/", userRouter);
 

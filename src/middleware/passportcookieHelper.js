@@ -5,8 +5,15 @@ exports.passportAuth = (req, res, next) => {
     // CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
     passport.use(User.createStrategy());
     // use static serialize and deserialize of model for passport session support
-    passport.serializeUser(User.serializeUser());
-    passport.deserializeUser(User.deserializeUser());
+    // passport.serializeUser(User.serializeUser());
+    // passport.deserializeUser(User.deserializeUser());
+    passport.serializeUser(function(user, done) {
+        done(null, user);
+      });
+      
+      passport.deserializeUser(function(user, done) {
+        done(null, user);
+      });
 
     next();
 };
